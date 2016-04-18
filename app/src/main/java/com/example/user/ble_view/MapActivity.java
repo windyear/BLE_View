@@ -22,6 +22,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,6 +49,7 @@ public class MapActivity extends MainActivity{
     private BluetoothGatt mbluetootGatt3;
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();//蓝牙适配器
     private RssiThread rssiThread;//不断读取rssi的线程
+    private int flag=0;
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -61,11 +63,42 @@ public class MapActivity extends MainActivity{
         final MapView mapView = new MapView(this);
 
         POINT_Size = 10;
-
+        /*str1="00:15:83:00:3D:13";
+        str2="00:15:83:00:40:D9";
+        str3="00:15:83:00:3D:B2";*/
+        str1="20:91:48:32:21:45";
+        str2="20:91:48:32:24:CF";
+        str3="20:91:48:32:23:30";
+        flag++;
         setContentView(mapView);
-        connectBluetooth();
-        rssiThread=new RssiThread();
-        rssiThread.start();
+       // connectBluetooth();
+       // rssiThread=new RssiThread();
+       // rssiThread.start();
+        //添加一个图片单击事件
+        mapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (flag) {
+                    case 1:
+                    device1 = bluetoothAdapter.getRemoteDevice(str1);
+                    mbluetootGatt1 = device1.connectGatt(MapActivity.this, true, gattCallback);
+                        break;
+                    case 2:
+                        device2 = bluetoothAdapter.getRemoteDevice(str2);
+                        mbluetootGatt2 = device2.connectGatt(MapActivity.this, true, gattCallback);
+                        break;
+                    case 3:
+                        device3 = bluetoothAdapter.getRemoteDevice(str3);
+                        mbluetootGatt3 = device3.connectGatt(MapActivity.this, true, gattCallback);
+                        break;
+                    case 4:
+                        rssiThread=new RssiThread();
+                        rssiThread.start();
+                        break;
+                    default:break;
+                }
+            }
+        });
 
         final Handler handler = new Handler() {
             @Override
@@ -193,11 +226,15 @@ public class MapActivity extends MainActivity{
         {
             //设备连接状态改变会回调这个函数
             // Log.v(TAG, "回调函数已经调用");
+            //Toast.makeText(MapActivity.this, "已连接", Toast.LENGTH_SHORT).show();
             super.onConnectionStateChange(mBluetoothGatt, status, newState);
             if (newState == BluetoothProfile.STATE_CONNECTED)
             {
                 //连接成功, 可以把这个gatt 保存起来, 需要读rssi的时候就
-                Log.v("MainActivity", "回调函数已经调用");
+                flag++;
+                Log.i("MainActivity", "回调函数已经调用"+flag);
+                Toast.makeText(MapActivity.this, "已连接", Toast.LENGTH_SHORT).show();
+
             }
         }
         @Override
@@ -205,11 +242,11 @@ public class MapActivity extends MainActivity{
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
             super.onReadRemoteRssi(gatt, rssi, status);
             if(gatt==mbluetootGatt1){
-                Log.v("MainActivity",""+(200+rssi));}
+                Log.i("MainActivity",""+(200+rssi));}
             else if(gatt==mbluetootGatt2){
-                Log.v("MainActivity",""+(400+rssi));
+                Log.i("MainActivity",""+(400+rssi));
             }else{
-                Log.v("MainActivity",""+(600+rssi));
+                Log.i("MainActivity",""+(600+rssi));
             }
         }
     };
