@@ -37,6 +37,7 @@ import java.util.TimerTask;
 public class MapActivity extends MainActivity{
 
     private Handler handler;
+    private int area=2;
     private int count = 0;
     private int POINT_Size;
     private int Point_Type=4;
@@ -95,32 +96,32 @@ public class MapActivity extends MainActivity{
 
 
         //添加一个图片单击事件
-       /* mapView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (flag) {
-                    case 1:
-                        device1 = bluetoothAdapter.getRemoteDevice(str1);
-                        mbluetootGatt1 = device1.connectGatt(MapActivity.this, true, gattCallback);
+       mapView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               switch (flag) {
+                   case 1:
+                       device1 = bluetoothAdapter.getRemoteDevice(str1);
+                       mbluetootGatt1 = device1.connectGatt(MapActivity.this, true, gattCallback);
 
-                        break;
-                    case 2:
-                        device2 = bluetoothAdapter.getRemoteDevice(str2);
-                        mbluetootGatt2 = device2.connectGatt(MapActivity.this, true, gattCallback);
-                        break;
-                   /* case 3:
-                        device3 = bluetoothAdapter.getRemoteDevice(str3);
-                        mbluetootGatt3 = device3.connectGatt(MapActivity.this, true, gattCallback);
-                        break;
-                    case 4:
-                        rssiThread = new RssiThread();
-                        rssiThread.start();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });*/
+                       break;
+                   case 2:
+                       device2 = bluetoothAdapter.getRemoteDevice(str2);
+                       mbluetootGatt2 = device2.connectGatt(MapActivity.this, true, gattCallback);
+                       break;
+                   case 3:
+                       device3 = bluetoothAdapter.getRemoteDevice(str3);
+                       mbluetootGatt3 = device3.connectGatt(MapActivity.this, true, gattCallback);
+                       break;
+                   case 4:
+                       rssiThread = new RssiThread();
+                       rssiThread.start();
+                       break;
+                   default:
+                       break;
+               }
+           }
+       });
 
         handler = new Handler() {
             @Override
@@ -131,136 +132,109 @@ public class MapActivity extends MainActivity{
                 if(msg.what==0x1234){
                     Log.i("MainActivity","RSSI1="+RSSI1+"RSSI2="+RSSI2);
                     if(RSSI1>=-52){
-                        if(Point_Type>=2&&Point_Type<=6)
+                        if(direction==3)
                         {
                             pointY=497;       //4
-                            Point_Type=4;
-                            Log.i("MainActivity","4");
+                            area=1;
+                            Log.i("MainActivity","4，区域1");
                         }
                         else{
-                            Log.i("MainActivity","波动大,去除");
+                            pointY=497;       //4
+                            area=2;
+                            Log.i("MainActivity","4，区域2");
                         }
                     }
 
-                    if(RSSI1>=-58&&RSSI1<=-53){        //3,5
-                        if(Point_Type>=2&&Point_Type<=6)
+                    if(RSSI2>=-52){
+                        if(direction==3)
                         {
-                            pointY=497;       //4
-                            Point_Type=4;
-                            Log.i("MainActivity","3,5");
+                            pointY=1127;       //10
+                            area=2;
+                            Log.i("MainActivity","10，区域2");
                         }
                         else{
-                            Log.i("MainActivity","波动大,去除");
+                            pointY=1127;       //10
+                            area=3;
+                            Log.i("MainActivity","10，区域3");
                         }
                     }
-                    if(RSSI1>=-61&&RSSI1<=-59){
-                        if(RSSI2>=-68){
-                            if(Point_Type>=4&&Point_Type<=7)
-                            {
-                                pointY=707;               //6
-                                Point_Type=6;
-                                Log.i("MainActivity","6");
+
+                    switch (area){
+                        case 1:{
+                            Log.i("MainActivity","区域1");
+                            if(RSSI1>=-58&&RSSI1<=-53){        //3
+                                pointY=392;       //3
+                                Log.i("MainActivity","3");
+                                break;
                             }
-                            else{
-                                Log.i("MainActivity","波动大,去除");
-                            }
-                        }else {
-                            if(Point_Type<=4)
-                            {
-                                pointY=287;              //2
-                                Point_Type=2;
+                            if(RSSI1>=-61&&RSSI1<=-59){        //2
+                                pointY=287;       //2
                                 Log.i("MainActivity","2");
+                                break;
                             }
-                            else{
-                                Log.i("MainActivity","波动大,去除");
+                            if(RSSI1>=-64&&RSSI1<=-62){        //1
+                                pointY=182;       //1
+                                Log.i("MainActivity","1");
+                                break;
                             }
-                        }
-                    }
-                    if(RSSI1>=-64&&RSSI1<=-62){
-                       if(RSSI2>=-68){
-                           if(Point_Type<=4)
-                           {
-                               pointY=182;                //1
-                               Point_Type=1;
-                               Log.i("MainActivity","1");
-                           }
-                           else{
-                               Log.i("MainActivity","波动大,去除");
-                           }
-                       }else {
-                           if(Point_Type>=6&&Point_Type<=8)
-                           {
-                               pointY=812;                  //7
-                               Point_Type=7;
-                               Log.i("MainActivity","7");
-                           }
-                           else{
-                               Log.i("MainActivity","波动大,去除");
-                           }
-                       }
-                    }
-                    if(RSSI2>=-52){           //10
-                        if(Point_Type>=8&&Point_Type<=12){
-                            pointY=1127;
-                            Point_Type=10;
-                            Log.i("MainActivity","10");
-                        }
-                        else{
-                            Log.i("MainActivity","波动大,去除");
-                        }
-                    }
-                    if(RSSI2<=-53&&RSSI2>=-57){              //9,11
-                        if(Point_Type>=8&&Point_Type<=12){
-                            pointY=1127;
-                            Point_Type=10;
-                            Log.i("MainActivity","10");
-                        }
-                        else{
-                            Log.i("MainActivity","波动大,去除");
-                        }
-                    }
-                    if(RSSI2<=-58&&RSSI2>=-60){
-                        if(RSSI1>=-68){
-                            if(Point_Type>=7&&Point_Type<=10){
-                                pointY=917;           //8
-                                Point_Type=8;
-                                Log.i("MainActivity","8");
-                            }
-                            else{
-                                Log.i("MainActivity","波动大,去除");
-                            }
-                        }else{
-                            if(Point_Type>=10&&Point_Type<=13){
-                                pointY=1337;          //12
-                                Point_Type=12;
-                                Log.i("MainActivity","12");
-                            }
-                            else{
-                                Log.i("MainActivity","波动大,去除");
+                            if(RSSI1<=-65){        //0
+                                pointY=130;       //0
+                                Log.i("MainActivity","0");
+                                break;
                             }
                         }
-                    }
-                    if(RSSI2<=-61&&RSSI2>=-64){
-                        if(RSSI1>=-68){
-                            if(Point_Type>=6&&Point_Type<=8)
-                            {
-                                pointY=812;           //7
-                                Point_Type=7;
+                        case 2:{
+                            Log.i("MainActivity","区域2");
+                            if(RSSI1>=-58&&RSSI1<=-53){        //5
+                                pointY=602;       //5
+                                Log.i("MainActivity","5");
+                                break;
+                            }
+                            if(RSSI1>=-61&&RSSI1<=-59){        //6
+                                pointY=707;       //6
+                                Log.i("MainActivity","6");
+                                break;
+                            }
+                            if(RSSI1>=-64&&RSSI1<=-62){        //7
+                                pointY=812;       //7
                                 Log.i("MainActivity","7");
+                                break;
                             }
-                            else{
-                                Log.i("MainActivity","波动大,去除");
+                            if(RSSI2>=-60&&RSSI2<=-58){        //8
+                                pointY=917;       //8
+                                Log.i("MainActivity","8");
+                                break;
                             }
-                        }else{
-                            if(Point_Type>=10)
-                            {
-                                pointY=1442;          //13
-                                Point_Type=13;
+                            if(RSSI2>=-57&&RSSI2<=-53){        //9
+                                pointY=1022;       //9
+                                Log.i("MainActivity","9");
+                                break;
+                            }
+                        }
+                        case 3:{
+                            Log.i("MainActivity","区域3");
+                            if(RSSI2>=-60&&RSSI2<=-58){        //12
+                                pointY=1337;       //12
+                                Log.i("MainActivity","12");
+                                break;
+                            }
+                            if(RSSI2>=-57&&RSSI2<=-53){        //11
+                                pointY=1232;       //11
+                                Log.i("MainActivity","11");
+                                break;
+                            }
+                            if(RSSI2>=-64&&RSSI2<=-61){        //13
+                                pointY=1422;       //13
                                 Log.i("MainActivity","13");
+                                break;
                             }
-                            else{
-                                Log.i("MainActivity","波动大,去除");
+                            if(RSSI2<=-65){
+                                pointY=1500;
+                                break;
                             }
+                        }
+                        default:{
+
                         }
                     }
                 }
@@ -419,28 +393,31 @@ public class MapActivity extends MainActivity{
     {
         public void onAccuracyChanged(Sensor sensor, int accuracy)    {       }
         public void onSensorChanged(SensorEvent event)    {
-/* 判断Sensor的种类 */
+ //判断Sensor的种类
             if (event.sensor.getType() == Sensor.TYPE_ORIENTATION)      {
-/* 取得X值资料
- * x_data是水平值
- * 由于分成8个方向，所以每个方向为45°
- * */
+           // 取得X值资料
+  //x_data是水平值
+ //由于分成8个方向，所以每个方向为45°
                 float x_data = event.values[SensorManager.DATA_X];
 //245到335为电梯方向
                 if (x_data > 245 && x_data <= 335)        {
                     direction=1;
-                    Log.i("MainActivity","电梯方向" + String.valueOf(x_data));}
+                    //Log.i("MainActivity","电梯方向" + String.valueOf(x_data));
+                    }
                 //245到335为电梯方向
                 if (x_data > 155 && x_data <= 245)        {
                     direction=2;
-                    Log.i("MainActivity","426方向" + String.valueOf(x_data));}
+                    //Log.i("MainActivity","426方向" + String.valueOf(x_data));
+                    }
                 //65到155为电梯方向
                 if (x_data > 65 && x_data <= 155)        {
                     direction=3;
-                    Log.i("MainActivity","反电梯方向" + String.valueOf(x_data));}
+                    //Log.i("MainActivity","反电梯方向" + String.valueOf(x_data));
+                    }
                 //335到65为电梯方向
                 if (x_data > 335 || x_data <= 65)        {
                     direction=4;
-                    Log.i("MainActivity","电梯方向" + String.valueOf(x_data));}
+                    //Log.i("MainActivity","425方向" + String.valueOf(x_data));
+                    }
      }    }  };
 }
