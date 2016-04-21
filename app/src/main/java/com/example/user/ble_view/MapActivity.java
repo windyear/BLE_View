@@ -131,7 +131,8 @@ public class MapActivity extends MainActivity{
                 }
                 if(msg.what==0x1234){
                     Log.i("MainActivity","RSSI1="+RSSI1+"RSSI2="+RSSI2);
-                    if(RSSI1>=-52){
+                    if(RSSI1>=-52&&RSSI1<=-20){
+                        Log.i("MainActivity",""+direction);
                         if(direction==3)
                         {
                             pointY=497;       //4
@@ -145,7 +146,7 @@ public class MapActivity extends MainActivity{
                         }
                     }
 
-                    if(RSSI2>=-52){
+                    if(RSSI2>=-52&&RSSI2<=-20){
                         if(direction==3)
                         {
                             pointY=1127;       //10
@@ -186,6 +187,11 @@ public class MapActivity extends MainActivity{
                         case 2:{
                             Log.i("MainActivity","区域2");
                             if(RSSI1>=-58&&RSSI1<=-53){        //5
+                                //判断此时的电子罗盘方向，看是否转入宿舍,如果转入了就设置为区域4
+                                if(direction==3||direction==2)//转入425
+                                {
+                                    area=4;
+                                }
                                 pointY=602;       //5
                                 Log.i("MainActivity","5");
                                 break;
@@ -210,6 +216,7 @@ public class MapActivity extends MainActivity{
                                 Log.i("MainActivity","9");
                                 break;
                             }
+                            break;
                         }
                         case 3:{
                             Log.i("MainActivity","区域3");
@@ -231,6 +238,14 @@ public class MapActivity extends MainActivity{
                             if(RSSI2<=-65){
                                 pointY=1500;
                                 break;
+                            }
+                        }
+                        case 4:{
+                            if(direction==4&&RSSI2<=64){
+                                //下面为修改到宿舍中间坐标的代码
+
+                            }else if(direction==3&&RSSI2<=64){
+                                //这里是426宿舍位置的代码
                             }
                         }
                         default:{
@@ -313,9 +328,39 @@ public class MapActivity extends MainActivity{
         public void onDraw(Canvas canvas) {
             matrix.setScale(0.6f, 1.0f);
             paint.setStyle(Paint.Style.FILL);
+            paint.setStrokeWidth(6);
             canvas.drawBitmap(bitmap, matrix, null);
             paint.setColor(Color.rgb(255, 0, 0));
-            canvas.drawCircle(pre_pointX, pre_pointY, POINT_Size, paint);
+            switch (direction) {
+                case 1: {
+                    canvas.drawLine(pointX, pointY, pointX, pointY + 35, paint);
+                    canvas.drawLine(pointX, pointY, pointX + 15, pointY + 15, paint);
+                    canvas.drawLine(pointX, pointY, pointX - 15, pointY + 15, paint);
+                    break;
+                }
+                case 2: {
+                    canvas.drawLine(pointX, pointY, pointX + 35, pointY, paint);
+                    canvas.drawLine(pointX, pointY, pointX + 15, pointY - 15, paint);
+                    canvas.drawLine(pointX, pointY, pointX + 15, pointY + 15, paint);
+                    break;
+                }
+                case 3: {
+                    canvas.drawLine(pointX, pointY, pointX, pointY - 35, paint);
+                    canvas.drawLine(pointX, pointY, pointX - 15, pointY - 15, paint);
+                    canvas.drawLine(pointX, pointY, pointX + 15, pointY - 15, paint);
+                    break;
+                }
+                case 4: {
+                    canvas.drawLine(pointX, pointY, pointX -35, pointY, paint);
+                    canvas.drawLine(pointX, pointY, pointX - 15, pointY - 15, paint);
+                    canvas.drawLine(pointX, pointY, pointX - 15, pointY + 15, paint);
+                    break;
+                }
+                default: {
+
+                }
+            }
+            //canvas.drawCircle(pre_pointX, pre_pointY, POINT_Size, paint);
         }
     }
     //写一个函数启动蓝牙连接
