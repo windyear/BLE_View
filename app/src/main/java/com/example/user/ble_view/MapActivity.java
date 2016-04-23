@@ -42,9 +42,9 @@ public class MapActivity extends MainActivity{
     private int POINT_Size;
     private int Point_Type=4;
     private int pre_pointX=570;
-    private int pre_pointY=812;
+    private int pre_pointY=625;
     private int pointX = 570;
-    private int pointY = 812;
+    private int pointY = 625;
     private int RSSI1=0;           //用于记录rssi
     private int RSSI2=0;
     private int xSpeed = 0;
@@ -133,12 +133,12 @@ public class MapActivity extends MainActivity{
                         Log.i("MainActivity",""+direction);
                         if(direction==3)
                         {
-                            pointY=1130;       //4
+                            pointY=1150;       //4
                             area=1;
                             Log.i("MainActivity","4，区域1");
                         }
                         else{
-                            pointY=1130;       //4
+                            pointY=1150;       //4
                             area=2;
                             Log.i("MainActivity","4，区域2");
                         }
@@ -147,12 +147,12 @@ public class MapActivity extends MainActivity{
                     if(RSSI2>=-52&&RSSI2<=-20){
                         if(direction==3)
                         {
-                            pointY=470;       //10
+                            pointY=520;       //10
                             area=2;
                             Log.i("MainActivity","10，区域2");
                         }
                         if(direction==1){
-                            pointY=470;       //10
+                            pointY=520;       //10
                             area=3;
                             Log.i("MainActivity","10，区域3");
                         }
@@ -162,22 +162,22 @@ public class MapActivity extends MainActivity{
                         case 1:{
                             Log.i("MainActivity","区域1");
                             if(RSSI1>=-58&&RSSI1<=-53){        //3
-                                pointY=1205;       //3
+                                pointY=1255;       //3
                                 Log.i("MainActivity","3");
                                 break;
                             }
                             if(RSSI1>=-61&&RSSI1<=-59){        //2
-                                pointY=1310;       //2
+                                pointY=1360;       //2
                                 Log.i("MainActivity","2");
                                 break;
                             }
                             if(RSSI1>=-64&&RSSI1<=-62){        //1
-                                pointY=1415;       //1
+                                pointY=1465;       //1
                                 Log.i("MainActivity","1");
                                 break;
                             }
                             if(RSSI1<=-65){        //0
-                                pointY=1450;       //0
+                                pointY=1500;       //0
                                 Log.i("MainActivity","0");
                                 break;
                             }
@@ -186,22 +186,22 @@ public class MapActivity extends MainActivity{
                         case 2:{
                             Log.i("MainActivity","区域2");
                             if(RSSI1>=-52&&RSSI1<=-20){        //4
-                                pointY=1130;       //4
+                                pointY=1150;       //4
                                 Log.i("MainActivity","4");
                                 break;
                             }
                             if(RSSI1>=-58&&RSSI1<=-53){        //5
-                                pointY=995;       //5
+                                pointY=1045;       //5
                                 Log.i("MainActivity","5");
                                 break;
                             }
                             if(RSSI1>=-61&&RSSI1<=-59){        //6
-                                pointY=890;       //6
+                                pointY=940;       //6
                                 Log.i("MainActivity","6");
                                 break;
                             }
                             if(RSSI1>=-64&&RSSI1<=-62){        //7
-                                pointY=785;       //7
+                                pointY=835;       //7
                                 Log.i("MainActivity","7");
                                 break;
                             }
@@ -213,7 +213,7 @@ public class MapActivity extends MainActivity{
                                 {
                                     area=5;
                                 }
-                                pointY=680;       //8
+                                pointY=730;       //8
                                 Log.i("MainActivity","8");
                                 break;
                             }
@@ -226,7 +226,7 @@ public class MapActivity extends MainActivity{
                                 {
                                     area=5;
                                 }
-                                pointY=575;       //9
+                                pointY=625;       //9
                                 Log.i("MainActivity","9");
                                 break;
                             }
@@ -235,22 +235,22 @@ public class MapActivity extends MainActivity{
                         case 3:{
                             Log.i("MainActivity","区域3");
                             if(RSSI2>=-60&&RSSI2<=-58){        //12
-                                pointY=260;       //12
+                                pointY=310;       //12
                                 Log.i("MainActivity","12");
                                 break;
                             }
                             if(RSSI2>=-57&&RSSI2<=-53){        //11
-                                pointY=365;       //11
+                                pointY=415;       //11
                                 Log.i("MainActivity","11");
                                 break;
                             }
                             if(RSSI2>=-64&&RSSI2<=-61){        //13
-                                pointY=155;       //13
+                                pointY=205;       //13
                                 Log.i("MainActivity","13");
                                 break;
                             }
                             if(RSSI2<=-65){
-                                pointY=130;
+                                pointY=150;
                                 break;
                             }
                             break;
@@ -261,14 +261,12 @@ public class MapActivity extends MainActivity{
                             if(direction==2&&RSSI2<=-60){
                                 //下面为修改到宿舍中间坐标的代码
                                 pointX=270;
-                                pointY=630;
-                            }else if(direction==1||direction==3){
-                                if(RSSI2>=-60){
+                                pointY=625;
+                            }else if(RSSI2>=-60){
                                     area=2;
                                     pointX=570;
-                                    pointY=630;
+                                    pointY=625;
                                 }
-                            }
                             break;
                         }
                         //425
@@ -278,13 +276,11 @@ public class MapActivity extends MainActivity{
                                 //这里是425宿舍位置的代码
                                 pointX=870;
                                 pointY=630;
-                            }else if(direction==1||direction==3){
-                                 if(RSSI2>=-64){
+                            }else if(RSSI2>=-60){
                                      area=2;
                                      pointX=570;
                                      pointY=630;
                                  }
-                             }
                             break;
                         }
                         default:{
@@ -301,14 +297,10 @@ public class MapActivity extends MainActivity{
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (count == 5) {
+                if (count == 10) {
                     count = 0;
-                    xSpeed=(pointX-pre_pointX)/8;
-                    ySpeed=(pointY-pre_pointY)/8;
-                    if(mark>=2){
-                        mbluetootGatt1.readRemoteRssi();
-                        mbluetootGatt2.readRemoteRssi();
-                    }
+                    xSpeed=(pointX-pre_pointX)/10;
+                    ySpeed=(pointY-pre_pointY)/10;
                     } else {
                         count++;
                         pre_pointX=pre_pointX+xSpeed;
@@ -317,7 +309,17 @@ public class MapActivity extends MainActivity{
                 handler.sendEmptyMessage(0x123);
             }
         }, 0, 100);
-
+        //另外一个计时器负责读取RSSI
+        final Timer rssitimer=new Timer();
+        rssitimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(mark>=2){
+                    mbluetootGatt1.readRemoteRssi();
+                    mbluetootGatt2.readRemoteRssi();
+                }
+            }
+        },0,1000);
     }
 
     class MapView extends View {
@@ -339,27 +341,27 @@ public class MapActivity extends MainActivity{
             paint.setColor(Color.rgb(255, 0, 0));
             switch (direction) {
                 case 1: {
-                    canvas.drawLine(pointX, pointY, pointX, pointY + 35, paint);
-                    canvas.drawLine(pointX, pointY, pointX + 15, pointY + 15, paint);
-                    canvas.drawLine(pointX, pointY, pointX - 15, pointY + 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX, pre_pointY + 35, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX + 15, pre_pointY + 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX - 15, pre_pointY + 15, paint);
                     break;
                 }
                 case 2: {
-                    canvas.drawLine(pointX, pointY, pointX + 35, pointY, paint);
-                    canvas.drawLine(pointX, pointY, pointX + 15, pointY + 15, paint);
-                    canvas.drawLine(pointX, pointY, pointX + 15, pointY - 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX + 35, pre_pointY, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX + 15, pre_pointY + 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX + 15, pre_pointY - 15, paint);
                     break;
                 }
                 case 3: {
-                    canvas.drawLine(pointX, pointY, pointX, pointY - 35, paint);
-                    canvas.drawLine(pointX, pointY, pointX - 15, pointY - 15, paint);
-                    canvas.drawLine(pointX, pointY, pointX + 15, pointY - 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX, pre_pointY - 35, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX - 15, pre_pointY - 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX + 15, pre_pointY - 15, paint);
                     break;
                 }
                 case 4: {
-                    canvas.drawLine(pointX, pointY, pointX - 35, pointY, paint);
-                    canvas.drawLine(pointX, pointY, pointX - 15, pointY + 15, paint);
-                    canvas.drawLine(pointX, pointY, pointX - 15, pointY - 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX - 35, pre_pointY, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX - 15, pre_pointY + 15, paint);
+                    canvas.drawLine(pre_pointX, pre_pointY, pre_pointX - 15, pre_pointY - 15, paint);
                     break;
                 }
                 default: {
@@ -369,18 +371,6 @@ public class MapActivity extends MainActivity{
             //canvas.drawCircle(pre_pointX, pre_pointY, POINT_Size, paint);
         }
     }
-    //写一个函数启动蓝牙连接
-    /*public void connectBluetooth(){
-        str1="00:15:83:00:3D:13";
-        str2="00:15:83:00:40:D9";
-        str3="00:15:83:00:3D:B2";
-        device1 = bluetoothAdapter.getRemoteDevice(str1);
-        mbluetootGatt1=device1.connectGatt(MapActivity.this, true, gattCallback);
-        device2 = bluetoothAdapter.getRemoteDevice(str2);
-        mbluetootGatt2=device2.connectGatt(MapActivity.this, true, gattCallback);
-        device3 = bluetoothAdapter.getRemoteDevice(str3);
-        mbluetootGatt3=device3.connectGatt(MapActivity.this, true, gattCallback);
-    }*/
     //这个是蓝牙连接回调函数
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback()
     {
@@ -403,7 +393,7 @@ public class MapActivity extends MainActivity{
         @Override
         //底层获取RSSI后会回调这个函数
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-            super.onReadRemoteRssi(gatt, rssi, status);
+            //super.onReadRemoteRssi(gatt, rssi, status);
             if(gatt==mbluetootGatt1) {
                 RSSI1 = rssi;
             }
