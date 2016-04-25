@@ -37,14 +37,14 @@ import java.util.TimerTask;
 public class MapActivity extends MainActivity{
 
     private Handler handler;
-    private int area=2;
+    private int area=1;
     private int count = 0;
     private int POINT_Size;
-    private int Point_Type=4;
+    private int Point_Type=1;
     private int pre_pointX=570;
-    private int pre_pointY=625;
+    private int pre_pointY=1465;
     private int pointX = 570;
-    private int pointY = 625;
+    private int pointY = 1465;
     private int RSSI1=0;           //用于记录rssi
     private int RSSI2=0;
     private int xSpeed = 0;
@@ -130,31 +130,46 @@ public class MapActivity extends MainActivity{
                 if(msg.what==0x1234){
                     Log.i("MainActivity","RSSI1="+RSSI1+"RSSI2="+RSSI2);
                     if(RSSI1>=-52&&RSSI1<=-20){
-                        Log.i("MainActivity",""+direction);
                         if(direction==3)
                         {
-                            pointY=1150;       //4
-                            area=1;
-                            Log.i("MainActivity","4，区域1");
+                            if(Point_Type==5||Point_Type==4)
+                            {
+                                pointY=1150;       //4
+                                Point_Type=4;
+                                area=1;
+                                Log.i("MainActivity","4，区域1");
+                            }
                         }
                         else{
-                            pointY=1150;       //4
-                            area=2;
-                            Log.i("MainActivity","4，区域2");
+                            if(Point_Type==3||Point_Type==4)
+                            {
+                                pointY=1150;       //4
+                                Point_Type=4;
+                                area=2;
+                                Log.i("MainActivity","4，区域2");
+                            }
                         }
                     }
 
                     if(RSSI2>=-52&&RSSI2<=-20){
                         if(direction==3)
                         {
-                            pointY=520;       //10
-                            area=2;
-                            Log.i("MainActivity","10，区域2");
+                            if(Point_Type==10||Point_Type==11)
+                            {
+                                pointY=520;       //10
+                                Point_Type=10;
+                                area=2;
+                                Log.i("MainActivity","10，区域2");
+                            }
                         }
                         if(direction==1){
-                            pointY=520;       //10
-                            area=3;
-                            Log.i("MainActivity","10，区域3");
+                            if(Point_Type==10||Point_Type==9)
+                            {
+                                pointY=520;       //10
+                                Point_Type=10;
+                                area=3;
+                                Log.i("MainActivity","10，区域3");
+                            }
                         }
                     }
 
@@ -162,72 +177,112 @@ public class MapActivity extends MainActivity{
                         case 1:{
                             Log.i("MainActivity","区域1");
                             if(RSSI1>=-58&&RSSI1<=-53){        //3
-                                pointY=1255;       //3
-                                Log.i("MainActivity","3");
+                                if(Point_Type>=2&&Point_Type<=4)
+                                {
+                                    pointY=1255;       //3
+                                    Point_Type=3;
+                                    Log.i("MainActivity","3");
+                                }
                                 break;
                             }
                             if(RSSI1>=-61&&RSSI1<=-59){        //2
-                                pointY=1360;       //2
-                                Log.i("MainActivity","2");
+                                if(Point_Type>=1&&Point_Type<=3)
+                                {
+                                    pointY=1360;       //2
+                                    Point_Type=2;
+                                    Log.i("MainActivity","2");
+                                }
                                 break;
                             }
                             if(RSSI1>=-64&&RSSI1<=-62){        //1
-                                pointY=1465;       //1
-                                Log.i("MainActivity","1");
+                                if(Point_Type<=2)
+                                {
+                                    pointY=1465;       //1
+                                    Point_Type=1;
+                                    Log.i("MainActivity","1");
+                                }
                                 break;
                             }
                             if(RSSI1<=-65){        //0
-                                pointY=1500;       //0
-                                Log.i("MainActivity","0");
+                                if(Point_Type<=2)
+                                {
+                                    pointY=1500;       //0
+                                    Point_Type=0;
+                                    Log.i("MainActivity","0");
+                                }
                                 break;
                             }
                             break;
                         }
                         case 2:{
                             Log.i("MainActivity","区域2");
-                            if(RSSI1>=-52&&RSSI1<=-20){        //4
-                                pointY=1150;       //4
-                                Log.i("MainActivity","4");
+                            if(RSSI1>=-49&&RSSI1<=-20){        //4
+                                if(Point_Type<=5&&Point_Type>=3)
+                                {
+                                    pointY=1150;       //4
+                                    Point_Type=4;
+                                    Log.i("MainActivity","4");
+                                }
                                 break;
                             }
-                            if(RSSI1>=-58&&RSSI1<=-53){        //5
-                                pointY=1045;       //5
-                                Log.i("MainActivity","5");
+                            if(RSSI1>=-58&&RSSI1<=-50){        //5
+                                if(Point_Type<=6&&Point_Type>=4)
+                                {
+                                    pointY=1045;       //5
+                                    Point_Type=5;
+                                    Log.i("MainActivity","5");
+                                }
                                 break;
                             }
                             if(RSSI1>=-61&&RSSI1<=-59){        //6
-                                pointY=940;       //6
-                                Log.i("MainActivity","6");
+                                if(Point_Type<=7&&Point_Type>=5)
+                                {
+                                    pointY=940;       //6
+                                    Point_Type=6;
+                                    Log.i("MainActivity","6");
+                                }
                                 break;
                             }
                             if(RSSI1>=-64&&RSSI1<=-62){        //7
-                                pointY=835;       //7
-                                Log.i("MainActivity","7");
+                                if(Point_Type>=6&&Point_Type<=8)
+                                {
+                                    pointY=835;       //7
+                                    Point_Type=7;
+                                    Log.i("MainActivity","7");
+                                }
                                 break;
                             }
                             if(RSSI2>=-60&&RSSI2<=-58){        //8
-                                if(direction==2)//转入425或者426
+                                if(Point_Type<=9&&Point_Type>=7)
                                 {
-                                    area=4;
-                                }else if(direction==4)
-                                {
-                                    area=5;
+                                    if(direction==2)//转入425或者426
+                                    {
+                                        area=4;
+                                    }else if(direction==4)
+                                    {
+                                        area=5;
+                                    }
+                                    pointY=730;       //8
+                                    Point_Type=8;
+                                    Log.i("MainActivity","8");
                                 }
-                                pointY=730;       //8
-                                Log.i("MainActivity","8");
                                 break;
                             }
                             if(RSSI2>=-57&&RSSI2<=-53){        //9
                                 //判断此时的电子罗盘方向，看是否转入宿舍,如果转入了就设置为区域4
-                                if(direction==2)//转入425或者426
+                                if(Point_Type<=10&&Point_Type>=8)
                                 {
-                                    area=4;
-                                }else if(direction==4)
-                                {
-                                    area=5;
+                                    if(direction==2)//转入425或者426
+                                    {
+                                        area=4;
+                                    }else if(direction==4)
+                                    {
+                                        area=5;
+                                    }
+                                    pointY=625;       //9
+                                    Point_Type=9;
+                                    Log.i("MainActivity","9");
                                 }
-                                pointY=625;       //9
-                                Log.i("MainActivity","9");
                                 break;
                             }
                             break;
@@ -235,22 +290,38 @@ public class MapActivity extends MainActivity{
                         case 3:{
                             Log.i("MainActivity","区域3");
                             if(RSSI2>=-60&&RSSI2<=-58){        //12
-                                pointY=310;       //12
-                                Log.i("MainActivity","12");
+                                if(Point_Type<=13&&Point_Type>=11)
+                                {
+                                    pointY=310;       //12
+                                    Point_Type=12;
+                                    Log.i("MainActivity","12");
+                                }
                                 break;
                             }
                             if(RSSI2>=-57&&RSSI2<=-53){        //11
-                                pointY=415;       //11
-                                Log.i("MainActivity","11");
+                                if(Point_Type>=10&&Point_Type<=12)
+                                {
+                                    pointY=415;       //11
+                                    Point_Type=11;
+                                    Log.i("MainActivity","11");
+                                }
                                 break;
                             }
                             if(RSSI2>=-64&&RSSI2<=-61){        //13
-                                pointY=205;       //13
-                                Log.i("MainActivity","13");
+                                if(Point_Type>=12)
+                                {
+                                    pointY=205;       //13
+                                    Point_Type=13;
+                                    Log.i("MainActivity","13");
+                                }
                                 break;
                             }
                             if(RSSI2<=-65){
-                                pointY=150;
+                                if(Point_Type>=12)
+                                {
+                                    pointY=150;
+                                    Point_Type=14;
+                                }
                                 break;
                             }
                             break;
