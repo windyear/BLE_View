@@ -1,7 +1,6 @@
 package com.example.user.ble_view;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -30,21 +29,13 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
     private ImageButton FirstButtom;
     private ImageButton SecondButtom;
     private ImageButton ThirdButtom;
-    private BluetoothAdapter bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_main);
-        if (!bluetoothAdapter.isEnabled()) {
-            int REQUEST_ENABLE_BT = 1;
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        } else {
-            Toast toast = Toast.makeText(MainActivity.this, "已经打开了蓝牙，可以正常使用APP", Toast.LENGTH_LONG);
-            toast.show();
-        }
         initView();
         initViewPage();
         initEvent();
