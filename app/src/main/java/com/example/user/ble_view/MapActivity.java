@@ -132,7 +132,7 @@ public class MapActivity extends MainActivity{
                     if(RSSI1>=-52&&RSSI1<=-20){
                         if(direction==3)
                         {
-                            if(Point_Type==5||Point_Type==4)
+                            if(Point_Type<=6&&Point_Type>=4)
                             {
                                 pointY=1150;       //4
                                 Point_Type=4;
@@ -141,7 +141,7 @@ public class MapActivity extends MainActivity{
                             }
                         }
                         else{
-                            if(Point_Type==3||Point_Type==4)
+                            if(Point_Type>=2&&Point_Type<=4)
                             {
                                 pointY=1150;       //4
                                 Point_Type=4;
@@ -154,7 +154,7 @@ public class MapActivity extends MainActivity{
                     if(RSSI2>=-52&&RSSI2<=-20){
                         if(direction==3)
                         {
-                            if(Point_Type==10||Point_Type==11)
+                            if(Point_Type>=10&&Point_Type<=12)
                             {
                                 pointY=520;       //10
                                 Point_Type=10;
@@ -163,7 +163,7 @@ public class MapActivity extends MainActivity{
                             }
                         }
                         if(direction==1){
-                            if(Point_Type==10||Point_Type==9)
+                            if(Point_Type>=8&&Point_Type<=10)
                             {
                                 pointY=520;       //10
                                 Point_Type=10;
@@ -177,7 +177,7 @@ public class MapActivity extends MainActivity{
                         case 1:{
                             Log.i("MainActivity","区域1");
                             if(RSSI1>=-58&&RSSI1<=-53){        //3
-                                if(Point_Type>=2&&Point_Type<=4)
+                                if(Point_Type>=1&&Point_Type<=5)
                                 {
                                     pointY=1255;       //3
                                     Point_Type=3;
@@ -186,7 +186,7 @@ public class MapActivity extends MainActivity{
                                 break;
                             }
                             if(RSSI1>=-61&&RSSI1<=-59){        //2
-                                if(Point_Type>=1&&Point_Type<=3)
+                                if(Point_Type>=0&&Point_Type<=4)
                                 {
                                     pointY=1360;       //2
                                     Point_Type=2;
@@ -195,7 +195,7 @@ public class MapActivity extends MainActivity{
                                 break;
                             }
                             if(RSSI1>=-64&&RSSI1<=-62){        //1
-                                if(Point_Type<=2)
+                                if(Point_Type<=3)
                                 {
                                     pointY=1465;       //1
                                     Point_Type=1;
@@ -217,7 +217,7 @@ public class MapActivity extends MainActivity{
                         case 2:{
                             Log.i("MainActivity","区域2");
                             if(RSSI1>=-49&&RSSI1<=-20){        //4
-                                if(Point_Type<=5&&Point_Type>=3)
+                                if(Point_Type<=6&&Point_Type>=2)
                                 {
                                     pointY=1150;       //4
                                     Point_Type=4;
@@ -226,7 +226,7 @@ public class MapActivity extends MainActivity{
                                 break;
                             }
                             if(RSSI1>=-58&&RSSI1<=-50){        //5
-                                if(Point_Type<=6&&Point_Type>=4)
+                                if(Point_Type<=7&&Point_Type>=4)
                                 {
                                     pointY=1045;       //5
                                     Point_Type=5;
@@ -235,7 +235,7 @@ public class MapActivity extends MainActivity{
                                 break;
                             }
                             if(RSSI1>=-61&&RSSI1<=-59){        //6
-                                if(Point_Type<=7&&Point_Type>=5)
+                                if(Point_Type<=8&&Point_Type>=4)
                                 {
                                     pointY=940;       //6
                                     Point_Type=6;
@@ -243,8 +243,8 @@ public class MapActivity extends MainActivity{
                                 }
                                 break;
                             }
-                            if(RSSI1>=-64&&RSSI1<=-62){        //7
-                                if(Point_Type>=6&&Point_Type<=8)
+                            if(RSSI2>=-62&&RSSI2<=-60){        //7
+                                if(Point_Type>=5&&Point_Type<=9)
                                 {
                                     pointY=835;       //7
                                     Point_Type=7;
@@ -252,8 +252,9 @@ public class MapActivity extends MainActivity{
                                 }
                                 break;
                             }
-                            if(RSSI2>=-60&&RSSI2<=-58){        //8
-                                if(Point_Type<=9&&Point_Type>=7)
+                            if(RSSI2>=
+                                    -59&&RSSI2<=-58){        //8
+                                if(Point_Type<=10&&Point_Type>=6)
                                 {
                                     if(direction==2)//转入425或者426
                                     {
@@ -270,7 +271,7 @@ public class MapActivity extends MainActivity{
                             }
                             if(RSSI2>=-57&&RSSI2<=-53){        //9
                                 //判断此时的电子罗盘方向，看是否转入宿舍,如果转入了就设置为区域4
-                                if(Point_Type<=10&&Point_Type>=8)
+                                if(Point_Type<=10&&Point_Type>=7)
                                 {
                                     if(direction==2)//转入425或者426
                                     {
@@ -290,7 +291,7 @@ public class MapActivity extends MainActivity{
                         case 3:{
                             Log.i("MainActivity","区域3");
                             if(RSSI2>=-60&&RSSI2<=-58){        //12
-                                if(Point_Type<=13&&Point_Type>=11)
+                                if(Point_Type<=14&&Point_Type>=10)
                                 {
                                     pointY=310;       //12
                                     Point_Type=12;
@@ -299,7 +300,7 @@ public class MapActivity extends MainActivity{
                                 break;
                             }
                             if(RSSI2>=-57&&RSSI2<=-53){        //11
-                                if(Point_Type>=10&&Point_Type<=12)
+                                if(Point_Type>=10&&Point_Type<=13)
                                 {
                                     pointY=415;       //11
                                     Point_Type=11;
@@ -308,7 +309,7 @@ public class MapActivity extends MainActivity{
                                 break;
                             }
                             if(RSSI2>=-64&&RSSI2<=-61){        //13
-                                if(Point_Type>=12)
+                                if(Point_Type>=11)
                                 {
                                     pointY=205;       //13
                                     Point_Type=13;
@@ -329,12 +330,14 @@ public class MapActivity extends MainActivity{
                         //426
                         case 4:{
                             Log.i("MainActivity","区域4");
-                            if(direction==2&&RSSI2<=-60){
+                            if(direction==2&&RSSI2<=-58){
                                 //下面为修改到宿舍中间坐标的代码
                                 pointX=270;
                                 pointY=625;
                             }else if(RSSI2>=-60){
-                                    area=2;
+                                if(direction==1||direction==3) {
+                                    area = 2;
+                                }
                                     pointX=570;
                                     pointY=625;
                                 }
@@ -343,12 +346,14 @@ public class MapActivity extends MainActivity{
                         //425
                         case 5:{
                             Log.i("MainActivity","区域5");
-                             if(direction==4&&RSSI2<=-60){
+                             if(direction==4&&RSSI2<=-58){
                                 //这里是425宿舍位置的代码
                                 pointX=870;
                                 pointY=630;
                             }else if(RSSI2>=-60){
+                                 if(direction==1||direction==3){
                                      area=2;
+                                 }
                                      pointX=570;
                                      pointY=630;
                                  }
